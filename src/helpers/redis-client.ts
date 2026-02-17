@@ -1,5 +1,4 @@
 import { createClient } from 'redis';
-import pc from 'picocolors';
 import { config } from '@/helpers/config';
 import { logger } from '@/utils';
 
