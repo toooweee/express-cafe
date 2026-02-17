@@ -2,6 +2,7 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
+    "baseUrl": "./src",
 
     "module": "CommonJS",
     "target": "ES2023",
@@ -33,7 +34,11 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "paths": {}
+    "paths": {
+      "@/*": ["./*"]
+      //      "@prisma-client": [""],
+      //      "@prisma-client/*": [""]
+    }
   },
   "exclude": ["node_modules", "dist"],
   "include": ["src/**/*"]

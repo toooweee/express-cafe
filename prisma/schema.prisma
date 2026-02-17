@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id       String  @id @default(uuid())
+  email    String  @unique
+  password String
+  tokens   Token[]
+
+  @@map("users")
+}
+
+model Token {
+  id        String @id @default(uuid())
+  token     String @unique
+  userAgent String
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String @map("user_id")
+
+  @@unique([userAgent, userId])
+  @@map("tokens")
+}

@@ -1,0 +1,34 @@
+services:
+  db:
+    image: postgres:18.1-alpine
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+  redis:
+    image: redis:8.6.0-alpine
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    ports:
+      - "6380:6379"
+
+  redis-insight:
+    image: redis/redisinsight:latest
+    restart: unless-stopped
+    depends_on:
+      - redis
+    env_file:
+      - ../.env
+    ports:
+      - '5539:5540'
+    volumes:
+      - redis-insight:/data
+
+volumes:
+  postgres_data:
+  redis-insight:
