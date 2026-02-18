@@ -7,6 +7,7 @@ const configSchema = z.object({
   POSTGRES_USER: z.string(),
   POSTGRES_PASSWORD: z.string(),
   POSTGRES_DATABASE: z.string(),
+  DATABASE_URL: z.string(),
   REDIS_HOST: z.string(),
   REDIS_PORT: z.string(),
 });

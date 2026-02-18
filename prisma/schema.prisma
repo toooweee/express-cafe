@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["views"]
 }
 
 datasource db {
@@ -8,21 +9,30 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  email    String  @unique
-  password String
-  tokens   Token[]
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now()) @map("create_at")
+  tokens    Token[]
 
   @@map("users")
 }
 
 model Token {
-  id        String @id @default(uuid())
-  token     String @unique
+  id        String   @id @default(uuid())
+  token     String   @unique
   userAgent String
-  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String @map("user_id")
+  userId    String   @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  expiresAt DateTime @map("expires_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userAgent, userId])
   @@map("tokens")
+}
+
+view UserWithLastToken {
+  id        String?
+  email     String?
+  lastlogin DateTime?
 }

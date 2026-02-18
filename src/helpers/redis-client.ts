@@ -1,6 +1,6 @@
 import { createClient } from 'redis';
 import { config } from '@/helpers/config';
-import { logger } from '@/utils';
+import { logger } from '@/infra/utils';
 
 const url = `redis://${config.REDIS_HOST}:${config.REDIS_PORT}`;
 
