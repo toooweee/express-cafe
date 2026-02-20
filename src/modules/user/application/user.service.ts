@@ -9,7 +9,7 @@ export class UserService {
 		const { email, password } = dto;
 
 		const id = crypto.randomUUID();
-		const user = User.create({ id, email, password });
+		const user = User.create(id, { email, password });
 
 		await this.userRepository.save(user);
 

@@ -1,27 +1,18 @@
-import { CreateUserProps } from '@/modules/user/domain/user.types';
+import { Entity } from '@/libs/ddd';
 
-export class User {
-  private constructor(
-    private readonly _id: string,
-    private _email: string,
-    private _password: string,
-  ) {}
+type UserProps = {
+	email: string;
+	password: string;
+};
 
-  static create(props: CreateUserProps) {
-    const { id, email, password } = props;
+export class User extends Entity<UserProps> {
+	private constructor(id: string, props: UserProps) {
+		super({ id, props });
+	}
 
-    return new User(id, email, password);
-  }
+	static create(id: string, props: UserProps) {
+		const { email, password } = props;
 
-  get id() {
-    return this._id;
-  }
-
-  get email() {
-    return this._email;
-  }
-
-  get password() {
-    return this._password;
-  }
+		return new User(id, { email, password });
+	}
 }
