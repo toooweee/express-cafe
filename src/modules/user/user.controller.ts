@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 
+import { successResponse } from '@/infra/helpers';
 import { UserService } from '@/modules/user/application/user.service';
 
 export class UserController {
@@ -16,10 +17,10 @@ export class UserController {
 
 	createUser = async (req: Request, res: Response, next: NextFunction) => {
 		try {
-			const result = await this.userService.create(req.body);
-			return res.status(200).json(result);
-		} catch (e) {
-			next(e);
+			const data = await this.userService.create(req.body);
+			return successResponse(res, data);
+		} catch (error: unknown) {
+			next(error);
 		}
 	};
 }

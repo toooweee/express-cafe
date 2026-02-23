@@ -1,4 +1,4 @@
-import { Entity } from '@/libs/ddd';
+import { CreateEntityProps, Entity } from '@/libs/ddd';
 
 type UserProps = {
 	email: string;
@@ -6,13 +6,11 @@ type UserProps = {
 };
 
 export class User extends Entity<UserProps> {
-	private constructor(id: string, props: UserProps) {
-		super({ id, props });
+	private constructor(props: CreateEntityProps<UserProps>) {
+		super(props);
 	}
 
 	static create(id: string, props: UserProps) {
-		const { email, password } = props;
-
-		return new User(id, { email, password });
+		return new User({ id, props });
 	}
 }
