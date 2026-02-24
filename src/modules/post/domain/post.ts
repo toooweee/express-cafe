@@ -1,10 +1,10 @@
-import { CreateEntityProps, Entity } from '@/libs/ddd';
+import { AggregateId, CreateEntityProps, Entity } from '@/libs/ddd';
 
 type PostProps = {
 	title: string;
 	description: string;
 	tags: string[];
-	userId: string;
+	userId: AggregateId;
 };
 
 export class Post extends Entity<PostProps> {
@@ -12,7 +12,7 @@ export class Post extends Entity<PostProps> {
 		super(props);
 	}
 
-	static create(id: string, props: PostProps) {
-		return new Post({ id, props });
+	static create(props: CreateEntityProps<PostProps>) {
+		return new Post(props);
 	}
 }

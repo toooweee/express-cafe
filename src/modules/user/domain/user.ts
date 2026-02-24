@@ -11,7 +11,7 @@ export class User extends Entity<UserProps> {
 		super(props);
 	}
 
-	static create(id: string, props: UserProps) {
-		return new User({ id, props });
+	static create(props: CreateEntityProps<UserProps>) {
+		return new User(props);
 	}
 }

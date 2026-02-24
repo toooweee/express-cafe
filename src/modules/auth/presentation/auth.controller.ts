@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from 'express';
 
 import { successResponse } from '@/infra/helpers';
 import { validateBody } from '@/infra/middlewares';
+import { AuthService } from '@/modules/auth/application/auth.service';
 import {
 	loginSchema,
 	RegisterDto,
@@ -12,7 +13,7 @@ export class AuthController {
 	path = '/auth';
 	router = express.Router();
 
-	constructor() {
+	constructor(private readonly authService: AuthService) {
 		this.initializeRoutes();
 	}
 

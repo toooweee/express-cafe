@@ -7,5 +7,5 @@ import { UserController } from '@/modules/user/presentation/user.controller';
 export const controllers: IController[] = [
 	new UserController(providers.user.service),
 	new PostController(providers.post.service),
-	new AuthController()
+	new AuthController(providers.auth.service)
 ];

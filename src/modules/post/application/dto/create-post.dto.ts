@@ -1,6 +1,8 @@
-export class CreatePostDto {
-	title!: string;
-	description!: string;
-	tags!: string[];
-	userId!: string;
+export class CreatePostCommand {
+	constructor(
+		public readonly title: string,
+		public readonly description: string,
+		public readonly tags: string[],
+		public readonly userId: string
+	) {}
 }

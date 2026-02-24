@@ -3,7 +3,7 @@ export type AggregateId = string;
 export type EntityMeta = {
 	id: AggregateId;
 	createdAt: Date;
-	updatedAt: Date;
+	updatedAt: Date | undefined;
 };
 
 export type CreateEntityProps<T> = {
@@ -17,7 +17,7 @@ export abstract class Entity<EntityProps> {
 	protected _id: AggregateId;
 	protected readonly props: EntityProps;
 	private readonly _createdAt: Date;
-	private _updatedAt: Date;
+	private _updatedAt: Date | undefined;
 
 	protected constructor({
 		id,
@@ -29,7 +29,7 @@ export abstract class Entity<EntityProps> {
 		this.props = props;
 		const now = new Date();
 		this._createdAt = createdAt ?? now;
-		this._updatedAt = updatedAt ?? now;
+		this._updatedAt = updatedAt;
 	}
 
 	get id() {

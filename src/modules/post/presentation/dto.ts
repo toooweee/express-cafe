@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const createPostSchema = z.object({
+export const createPostSchema = z.object({
 	title: z.string(),
 	description: z.string(),
 	tags: z.array(z.string()).min(1),
