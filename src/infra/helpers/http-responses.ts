@@ -9,5 +9,5 @@ export const successResponse = (
 export const errorResponse = (
 	res: Response,
 	statusCode: number,
-	error: string
-) => res.status(statusCode).json({ error });
+	message: string
+) => res.status(statusCode).json({ message, statusCode });

@@ -1,3 +1,4 @@
+import { ConflictException, NotFoundException } from '@/infra/helpers';
 import { CreateUserCommand } from '@/modules/user/application/user.dto';
 import { UserApplicationMapper } from '@/modules/user/application/user.mapper';
 import { UserRepositoryPort } from '@/modules/user/application/user.repository.port';
@@ -9,20 +10,37 @@ export class UserService {
 
 	async create(command: CreateUserCommand) {
 		const { email, password } = command;
+
 		const id = crypto.randomUUID();
-		const user = User.create(id, { email, password });
+		const emailVo = UserEmail.create(email);
+
+		const existingUser = await this.userRepository.findByEmail(emailVo);
+
+		if (existingUser) {
+			throw new ConflictException(`User with email ${email} already exists`);
+		}
+
+		const user = User.create({ id, props: { email: emailVo, password } });
 
 		await this.userRepository.save(user);
 
 		return UserApplicationMapper.toResponse(user);
 	}
 
-	async findAll() {}
+	async findAll() {
+		const users = await this.userRepository.findAll();
+
+		return users.map((user) => UserApplicationMapper.toResponse(user));
+	}
 
 	async findById(id: string) {
-		const user = await this.userRepository.findById(id.toString());
+		const user = await this.userRepository.findById(id);
 
-		return user ? UserApplicationMapper.toResponse(user) : null;
+		if (!user) {
+			throw new NotFoundException(`User with id ${id} not found`);
+		}
+
+		return UserApplicationMapper.toResponse(user);
 	}
 
 	async findByEmail(email: string) {
@@ -30,7 +48,11 @@ export class UserService {
 
 		const user = await this.userRepository.findByEmail(emailVo);
 
-		return user ? UserApplicationMapper.toResponse(user) : null;
+		if (!user) {
+			throw new NotFoundException(`User with email ${email} not found`);
+		}
+
+		return UserApplicationMapper.toResponse(user);
 	}
 
 	async findUsersLastLogin() {}

@@ -1,7 +1,11 @@
 import type { NextFunction, Request, Response } from 'express';
 import { ZodError } from 'zod';
 
-import { errorResponse } from '@/infra/helpers';
+import {
+	ApplicationError,
+	BadRequestException,
+	errorResponse
+} from '@/infra/helpers';
 import { logger } from '@/infra/utils';
 
 export const errorHandler = (
@@ -12,12 +16,16 @@ export const errorHandler = (
 ) => {
 	if (err instanceof ZodError) {
 		return res.status(400).json({
-			message: 'Bad Request',
-			error: err.issues[0]?.message
+			message: err.issues[0]?.message,
+			statusCode: 400
 		});
+	}
+
+	if (err instanceof ApplicationError) {
+		return errorResponse(res, err.statusCode, err.message);
 	}
 
 	logger.error(err);
 
-	errorResponse(res, 500, 'Internal Server Error');
+	return errorResponse(res, 500, 'Internal Server Error');
 };

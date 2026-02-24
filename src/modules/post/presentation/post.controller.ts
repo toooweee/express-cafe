@@ -24,13 +24,10 @@ export class PostController {
 	create = async (req: Request, res: Response, next: NextFunction) => {
 		try {
 			const { title, description, tags, userId }: CreatePostDto = req.body;
-
-			successResponse(
-				res,
-				await this.postService.create(
-					new CreatePostCommand(title, description, tags, userId)
-				)
+			const data = await this.postService.create(
+				new CreatePostCommand(title, description, tags, userId)
 			);
+			successResponse(res, data);
 		} catch (error: unknown) {
 			next(error);
 		}

@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/generated/client';
+import { response } from 'express';
 
 import { AggregateId } from '@/libs/ddd';
 import { UserRepositoryPort } from '@/modules/user/application/user.repository.port';
@@ -17,6 +18,12 @@ export class UserPrismaRepository implements UserRepositoryPort {
 		});
 
 		return UserInfraMapper.toDomain(response);
+	}
+
+	async findAll() {
+		const response = await this.prisma.user.findMany();
+
+		return response.map((user) => UserInfraMapper.toDomain(user));
 	}
 
 	async findById(id: AggregateId) {
