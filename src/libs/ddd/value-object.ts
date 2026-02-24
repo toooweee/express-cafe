@@ -14,9 +14,7 @@ export abstract class ValueObject<T> {
 	}
 
 	getValue() {
-		if (this.isDomainPrimitive(this.props)) {
-			return this.props.value;
-		}
+		return (this.props as DomainPrimitive<T & (Primitives | Date)>).value;
 	}
 
 	private isDomainPrimitive(

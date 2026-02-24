@@ -6,7 +6,7 @@ export const UserApplicationMapper = {
 
 		return {
 			id: props.id,
-			email: props.email,
+			email: props.email.getValue(),
 			createdAt: props.createdAt,
 			updatedAt: props.updatedAt
 		};

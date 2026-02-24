@@ -1,7 +1,8 @@
 import { CreateEntityProps, Entity } from '@/libs/ddd';
+import { UserEmail } from '@/modules/user/domain/vo/user-email';
 
 type UserProps = {
-	email: string;
+	email: UserEmail;
 	password: string;
 };
 
