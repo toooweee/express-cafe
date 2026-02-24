@@ -1,5 +1,5 @@
 import { controllers } from '@/di';
-import { connectRedis } from '@/infra/helpers';
+import { connectRedis } from '@/infra/utils';
 
 import App from './app';
 

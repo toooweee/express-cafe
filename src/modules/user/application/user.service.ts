@@ -1,4 +1,4 @@
-import { CreateUserDto } from '@/modules/user/application/types';
+import { CreateUserCommand } from '@/modules/user/application/user.dto';
 import { UserApplicationMapper } from '@/modules/user/application/user.mapper';
 import { UserRepositoryPort } from '@/modules/user/application/user.repository.port';
 import { User } from '@/modules/user/domain/user';
@@ -7,8 +7,8 @@ import { UserEmail } from '@/modules/user/domain/vo/user-email';
 export class UserService {
 	constructor(private readonly userRepository: UserRepositoryPort) {}
 
-	async create(dto: CreateUserDto) {
-		const { email, password } = dto;
+	async create(command: CreateUserCommand) {
+		const { email, password } = command;
 		const id = crypto.randomUUID();
 		const user = User.create(id, { email, password });
 

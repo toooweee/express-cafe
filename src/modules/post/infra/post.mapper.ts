@@ -1,4 +1,5 @@
-import { Post as PostModel } from '@/generated/prisma/client';
+import { Post as PostModel } from '@prisma/generated/client';
+
 import { Post } from '@/modules/post/domain/post';
 
 export const PostInfraMapper = {

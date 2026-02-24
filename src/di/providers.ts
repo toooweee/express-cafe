@@ -1,4 +1,4 @@
-import prisma from '@/infra/prisma';
+import prisma from '@/infra/utils/prisma';
 import { PostService } from '@/modules/post/application/post.service';
 import { PostPrismaRepository } from '@/modules/post/infra/post.prisma.repository';
 import { UserService } from '@/modules/user/application/user.service';

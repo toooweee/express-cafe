@@ -1,4 +1,5 @@
-import { PrismaClient } from '@/generated/prisma/client';
+import { PrismaClient } from '@prisma/generated/client';
+
 import { AggregateId } from '@/libs/ddd';
 import { PostRepositoryPort } from '@/modules/post/application/post.repository.port';
 import { Post } from '@/modules/post/domain/post';

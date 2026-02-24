@@ -1,4 +1,5 @@
-import { User as UserPrismaModel } from '@/generated/prisma/client';
+import { User as UserPrismaModel } from '@prisma/generated/client';
+
 import { User } from '@/modules/user/domain/user';
 
 export const UserInfraMapper = {

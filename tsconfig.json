@@ -1,8 +1,8 @@
 {
 	"compilerOptions": {
-		"rootDir": "./src",
+		"rootDir": "./",
 		"outDir": "./dist",
-		"baseUrl": "./src",
+		"baseUrl": "./",
 
 		"module": "CommonJS",
 		"target": "ES2023",
@@ -35,13 +35,13 @@
 		"skipLibCheck": true,
 		"esModuleInterop": true,
 		"paths": {
-			"@/*": ["./*"],
-			//      "@prisma-client": [""],
-			//      "@prisma-client/*": [""]
+			"@/*": ["src/*"],
+			"@prisma/generated": ["generate/prisma"],
+			"@prisma/generated/*": ["generated/prisma/*"],
 			"@ddd": ["src/libs/ddd"],
 			"@ddd/*": ["src/libs/ddd/*"]
 		}
 	},
 	"exclude": ["node_modules", "dist"],
-	"include": ["src/**/*"]
+	"include": ["src/**/*", "generated/**/*"]
 }
