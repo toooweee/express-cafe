@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from 'express';
 
 import { successResponse } from '@/infra/helpers';
 import { validateBody } from '@/infra/middlewares';
+import { rolesMiddleware } from '@/infra/middlewares/roles-middleware';
 import { CreatePostCommand } from '@/modules/post/application/dto/create-post.dto';
 import { PostService } from '@/modules/post/application/post.service';
 import {
@@ -18,7 +19,12 @@ export class PostController {
 	}
 
 	private initializeRoutes = () => {
-		this.router.post(this.path, validateBody(createPostSchema), this.create);
+		this.router.post(
+			this.path,
+			rolesMiddleware('admin'),
+			validateBody(createPostSchema),
+			this.create
+		);
 	};
 
 	create = async (req: Request, res: Response, next: NextFunction) => {

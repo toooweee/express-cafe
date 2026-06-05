@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/generated/client';
-import { response } from 'express';
 
 import { AggregateId } from '@/libs/ddd';
 import { UserRepositoryPort } from '@/modules/user/application/user.repository.port';

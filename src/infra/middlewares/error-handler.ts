@@ -1,12 +1,9 @@
 import type { NextFunction, Request, Response } from 'express';
 import { ZodError } from 'zod';
 
-import {
-	ApplicationError,
-	BadRequestException,
-	errorResponse
-} from '@/infra/helpers';
+import { errorResponse } from '@/infra/helpers';
 import { logger } from '@/infra/utils';
+import { ApplicationError } from '@/libs/shared';
 
 export const errorHandler = (
 	err: unknown,

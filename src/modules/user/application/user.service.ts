@@ -1,4 +1,4 @@
-import { ConflictException, NotFoundException } from '@/infra/helpers';
+import { ConflictException, NotFoundException } from '@/libs/shared';
 import { CreateUserCommand } from '@/modules/user/application/user.dto';
 import { UserApplicationMapper } from '@/modules/user/application/user.mapper';
 import { UserRepositoryPort } from '@/modules/user/application/user.repository.port';

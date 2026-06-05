@@ -1,13 +1,13 @@
 import { PrismaClient } from '@prisma/generated/client';
 
 import { RefreshTokenRepositoryPort } from '@/modules/auth/application/ports/token.repository.port';
-import { Token } from '@/modules/auth/domain/token';
+import { RefreshToken } from '@/modules/auth/domain/refresh-token';
 import { TokenInfraMapper } from '@/modules/auth/infra/token.mapper';
 
-export class RefreshTokenRepository implements RefreshTokenRepositoryPort {
+export class RefreshTokenPrismaRepository implements RefreshTokenRepositoryPort {
 	constructor(private readonly prisma: PrismaClient) {}
 
-	upsert = async (refreshToken: Token) => {
+	upsert = async (refreshToken: RefreshToken) => {
 		const { id, userAgent, userId, token, expiresAt } =
 			TokenInfraMapper.toPersistence(refreshToken);
 

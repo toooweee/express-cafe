@@ -1,7 +1,10 @@
 import prisma from '@/infra/utils/prisma';
 import { AuthService } from '@/modules/auth/application/auth.service';
-import { Hasher } from '@/modules/auth/infra/hasher';
-import { RefreshTokenRepository } from '@/modules/auth/infra/refreshTokenRepository';
+import {
+	Hasher,
+	RefreshTokenPrismaRepository
+} from '@/modules/auth/infra/adapters';
+import { Jwt } from '@/modules/auth/infra/adapters/jwt';
 import { PostService } from '@/modules/post/application/post.service';
 import { PostPrismaRepository } from '@/modules/post/infra/post.prisma.repository';
 import { UserService } from '@/modules/user/application/user.service';
@@ -14,10 +17,11 @@ const postRepository = new PostPrismaRepository(prisma);
 const postService = new PostService(postRepository);
 
 const hasher = new Hasher();
-const refreshTokenRepository = new RefreshTokenRepository(prisma);
+const jwt = new Jwt();
+const refreshTokenRepository = new RefreshTokenPrismaRepository(prisma);
 const authService = new AuthService(
-	prisma,
 	hasher,
+	jwt,
 	userRepository,
 	refreshTokenRepository
 );
@@ -33,6 +37,7 @@ export const providers = {
 		service: postService
 	},
 	auth: {
+		repository: refreshTokenRepository,
 		service: authService
 	}
 };

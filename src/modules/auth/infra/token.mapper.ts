@@ -1,12 +1,12 @@
 import { Token as TokenModel } from '@prisma/generated/client';
 
-import { Token } from '@/modules/auth/domain/token';
+import { RefreshToken } from '@/modules/auth/domain/refresh-token';
 
 export const TokenInfraMapper = {
 	toDomain: ({ id, ...props }: TokenModel) => {
-		return Token.create(id, { ...props });
+		return RefreshToken.create({ id, props });
 	},
-	toPersistence: (token: Token) => {
+	toPersistence: (token: RefreshToken) => {
 		const props = token.getProps();
 
 		return {

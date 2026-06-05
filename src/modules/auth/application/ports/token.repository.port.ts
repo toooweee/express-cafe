@@ -1,7 +1,7 @@
-import { Token } from '@/modules/auth/domain/token';
+import { RefreshToken } from '@/modules/auth/domain/refresh-token';
 
 export interface RefreshTokenRepositoryPort {
-	upsert(token: Token): Promise<Token>;
-	findByToken(token: string): Promise<Token | null>;
+	upsert(token: RefreshToken): Promise<RefreshToken>;
+	findByToken(token: string): Promise<RefreshToken | null>;
 	delete(token: string): Promise<void>;
 }

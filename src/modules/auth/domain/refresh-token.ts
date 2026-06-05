@@ -7,13 +7,13 @@ type TokenProps = {
 	expiresAt: Date;
 };
 
-export class Token extends Entity<TokenProps> {
+export class RefreshToken extends Entity<TokenProps> {
 	private constructor(props: CreateEntityProps<TokenProps>) {
 		super(props);
 	}
 
-	static create(id: string, props: TokenProps) {
-		return new Token({ id, props });
+	static create(props: CreateEntityProps<TokenProps>) {
+		return new RefreshToken(props);
 	}
 
 	isExpired() {
